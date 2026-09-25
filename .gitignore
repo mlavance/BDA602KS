@@ -1,4 +1,22 @@
-*.env
-data/*
-test.ipynb
+#python
 __pycache__/*
+.ipynb_checkpoints/
+.venv/
+
+#mlflow
+mlruns/*
+mlflow.db
+
+#data
+*.csv
+*.h5
+*.pkl
+*.img
+data/*
+
+# env
+*.env
+.DS_Store
+
+#testing
+test.ipynb
