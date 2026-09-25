@@ -12,7 +12,9 @@ class Data_class:
     categorical facts derived from the plaintext of them
     """
 
-    def __init__(self, data: pd.DataFrame, words: list | None = None, chars: list | None = None):
+    def __init__(
+        self, data: pd.DataFrame, words: list | None = None, chars: list | None = None
+    ):
         """
         data must be passed as dataframe with contents labeled "Message"
         """
@@ -28,6 +30,7 @@ class Data_class:
         self._get_all_chars(chars_to_check)
         if chars != None:
             self._get_all_chars(chars)
+        self._get_capitals()
 
     def _get_all_words(self, words):
         for i in words:
@@ -63,4 +66,29 @@ class Data_class:
         total = self.data["Message"].str.len().replace(0, pd.NA)
 
         self.data[f"char_freq_{char}"] = 100 * counts / total
+        return 1
+
+    def _get_capitals(self):
+        self._determine_capital_run_length_average()
+        self._determine_capital_run_length_longest()
+        self._determine_capital_run_length_total()
+        return 1
+
+    def _determine_capital_run_length_average(self):
+        runs = self.data["Message"].str.findall(r"[A-Z]+")
+        lengths = runs.apply(lambda r: [len(x) for x in r])
+        avg = lengths.apply(lambda ls: sum(ls) / len(ls) if ls else pd.NA)
+        self.data["capital_run_length_average"] = avg
+        return 1
+
+    def _determine_capital_run_length_longest(self):
+        runs = self.data["Message"].str.findall(r"[A-Z]+")
+        longest = runs.apply(lambda r: max((len(x) for x in r), default=pd.NA))
+        self.data["capital_run_length_longest"] = longest
+        return 1
+
+    def _determine_capital_run_length_total(self):
+        runs = self.data["Message"].str.findall(r"[A-Z]+")
+        total = runs.apply(lambda r: sum(len(x) for x in r))
+        self.data["capital_run_length_total"] = total
         return 1
