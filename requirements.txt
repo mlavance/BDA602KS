@@ -2,3 +2,5 @@ pandas
 scipy
 numpy
 scikit-learn
+scikit-optimize
+mlflow
