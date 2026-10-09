@@ -1,5 +1,6 @@
 import re
 
+import numpy as np
 import pandas as pd
 
 from chars import chars_to_check
@@ -91,4 +92,9 @@ class Data_class:
         runs = self.data["Message"].str.findall(r"[A-Z]+")
         total = runs.apply(lambda r: sum(len(x) for x in r))
         self.data["capital_run_length_total"] = total
+        return 1
+
+    def setSpamClass(self, spamclass = 1, hamclass = 0):
+        self.data["Category"] = np.where(self.data['Category'] == 'spam', spamclass, hamclass)
+
         return 1
