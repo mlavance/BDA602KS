@@ -1,0 +1,2 @@
+model,dataset,test_messages,accuracy,precision_spam,recall_spam,f1_spam,roc_auc_spam
+One-Class SVM,UCI SMS Spam Collection,1115,0.7614349775784753,0.07913669064748201,0.0738255033557047,0.0763888888888889,0.3922909111120375
